@@ -27,6 +27,7 @@ class ListLearnerProgressRequest extends FormRequest
             'course_id' => 'nullable|exists:courses,id',
             'sort_direction' => 'nullable|in:asc,desc',
             'per_page' => 'nullable|integer|min:1|max:50',
+            'page' => 'nullable|integer|min:1',
         ];
     }
 
@@ -38,6 +39,8 @@ class ListLearnerProgressRequest extends FormRequest
             'per_page.integer' => 'The per page value must be an integer.',
             'per_page.min' => 'The per page value must be at least 1.',
             'per_page.max' => 'The per page value may not be greater than 50.',
+            'page.integer' => 'The page value must be an integer.',
+            'page.min' => 'The page value must be at least 1.',
         ];
     }
 }

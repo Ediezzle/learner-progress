@@ -45,9 +45,9 @@
                     </select>
                 </div>
 
-                <!-- Reset Course Filter -->
-                @if($courseFilter)
-                    <a href="{{ route('learner-progress.index') }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium">Reset Course Filter</a>
+                <!-- Reset Course Filter, Sort Progress and Records per Page -->
+                @if($courseFilter || $sortDirection != 'asc' || request('per_page', 10) != 10)
+                    <a href="{{ route('learner-progress.index') }}" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium">Reset</a>
                 @endif
             </form>
         </div>
@@ -130,7 +130,7 @@
 
         <!-- Pagination -->
         <div class="mt-6">
-            {{ $learners->appends(['sort_direction' => $sortDirection, 'course_id' => $courseFilter, 'per_page' => $perPage])->links() }}
+            {{ $learners->appends(['sort_direction' => $sortDirection, 'course_id' => $courseFilter])->links() }}
         </div>
     @else
         <div class="bg-white rounded-lg shadow-sm p-12 text-center">
