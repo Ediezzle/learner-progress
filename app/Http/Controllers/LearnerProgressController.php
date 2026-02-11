@@ -2,20 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Learner;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Requests\ListLearnerProgressRequest;
 
 class LearnerProgressController extends Controller
 {
     /**
      * Display a listing of learners with their progress.
      */
-    public function index()
+    public function index(ListLearnerProgressRequest $request)
     {
-        $perPage = request('per_page', 5);
+        $perPage = $request->get('per_page', 10);
+        $courseFilter = $request->get('course_id');
+        $sortDirection = $request->get('sort_direction', 'asc');
 
-        $learners = Learner::with('enrolments.course:id,name')->select(['id'])->paginate($perPage);
+        $query = Learner::with('enrolments.course:id,name')
+            ->when($courseFilter, function ($q, $courseFilter) {
+                $q->whereHas('enrolments', function (Builder $q) use ($courseFilter) {
+                    $q->where('course_id', $courseFilter);
+                });
+            });
 
-        return view('learner-progress.index', compact('learners'));
+        // Sort by progress with direction (high to low or low to high)
+        $query->withAvg('enrolments', 'progress')
+            ->orderBy('enrolments_avg_progress', $sortDirection);
+
+        $learners = $query->paginate($perPage);
+        $courses = Course::orderBy('name')->get(['id', 'name']);
+
+        return view(
+            'learner-progress.index',
+            compact('learners', 'courses', 'courseFilter', 'sortDirection', 'perPage')
+        );
     }
 
     /**
