@@ -23,9 +23,7 @@ class LearnerProgressController extends Controller
      */
     public function show(Learner $learner)
     {
-        $learner->load(['enrolments' => function ($query) {
-            $query->with('course');
-        }]);
+        $learner->load('enrolments.course');
 
         return view('learner-progress.show', compact('learner'));
     }
