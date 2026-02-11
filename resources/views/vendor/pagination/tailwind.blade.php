@@ -5,6 +5,13 @@
         </div>
 
         <div class="flex items-center gap-2 flex-wrap justify-center md:justify-end">
+            {{-- First Page Link --}}
+            @if ($paginator->onFirstPage())
+                <span class="px-3 py-2 text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">First</span>
+            @else
+                <a href="{{ $paginator->path() }}?page=1&per_page={{ request('per_page', 5) }}" class="px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">First</a>
+            @endif
+
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <span class="px-3 py-2 text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">Previous</span>
@@ -17,15 +24,24 @@
                 @foreach ($elements as $element)
                     {{-- "Three Dots" Separator --}}
                     @if (is_string($element))
-                        <span class="px-3 py-2 text-gray-500">{{ $element }}</span>
+                        <span class="px-3 py-2 text-gray-500 text-sm">{{ $element }}</span>
                     @endif
 
                     {{-- Array Of Links --}}
                     @if (is_array($element))
+                        @php $count = 0; @endphp
                         @foreach ($element as $page => $url)
-                            @if ($page == $paginator->currentPage())
-                                <span class="px-3 py-2 text-white bg-blue-600 rounded-lg font-medium">{{ $page }}</span>
-                            @else
+                            @if ($count < 5)
+                                @if ($page == $paginator->currentPage())
+                                    <span class="px-3 py-2 text-white bg-blue-600 rounded-lg font-medium">{{ $page }}</span>
+                                @else
+                                    <a href="{{ $url }}&per_page={{ request('per_page', 5) }}" class="px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">{{ $page }}</a>
+                                @endif
+                                @php $count++; @endphp
+                            @elseif ($count == 5 && $page !== end($element))
+                                <span class="px-3 py-2 text-gray-500 text-sm">...</span>
+                                @php $count++; @endphp
+                            @elseif ($page == end($element))
                                 <a href="{{ $url }}&per_page={{ request('per_page', 5) }}" class="px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">{{ $page }}</a>
                             @endif
                         @endforeach
@@ -38,6 +54,13 @@
                 <a href="{{ $paginator->nextPageUrl() }}&per_page={{ request('per_page', 5) }}" class="px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">Next</a>
             @else
                 <span class="px-3 py-2 text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">Next</span>
+            @endif
+
+            {{-- Last Page Link --}}
+            @if ($paginator->hasMorePages())
+                <a href="{{ $paginator->path() }}?page={{ $paginator->lastPage() }}&per_page={{ request('per_page', 5) }}" class="px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">Last</a>
+            @else
+                <span class="px-3 py-2 text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">Last</span>
             @endif
         </div>
     </div>

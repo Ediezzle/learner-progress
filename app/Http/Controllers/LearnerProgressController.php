@@ -13,9 +13,7 @@ class LearnerProgressController extends Controller
     {
         $perPage = request('per_page', 5);
 
-        $learners = Learner::with(['enrolments' => function ($query) {
-            $query->with('course');
-        }])->paginate($perPage);
+        $learners = Learner::with('enrolments.course')->paginate($perPage);
 
         return view('learner-progress.index', compact('learners'));
     }
