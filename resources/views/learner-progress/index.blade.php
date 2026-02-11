@@ -29,7 +29,7 @@
                         <div class="flex items-start justify-between mb-4">
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition">{{ $learner->full_name }}</h3>
-                                <p class="text-sm text-gray-500">ID: #{{ $learner->id }}</p>
+                                <p class="text-sm text-gray-500">Learner ID: #{{ $learner->id }}</p>
                             </div>
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                                 {{ $learner->enrolments->count() }} Course{{ $learner->enrolments->count() !== 1 ? 's' : '' }}

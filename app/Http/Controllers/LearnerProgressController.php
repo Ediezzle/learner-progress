@@ -13,7 +13,7 @@ class LearnerProgressController extends Controller
     {
         $perPage = request('per_page', 5);
 
-        $learners = Learner::with('enrolments.course')->paginate($perPage);
+        $learners = Learner::with('enrolments.course:id,name')->select(['id'])->paginate($perPage);
 
         return view('learner-progress.index', compact('learners'));
     }
@@ -23,7 +23,7 @@ class LearnerProgressController extends Controller
      */
     public function show(Learner $learner)
     {
-        $learner->load('enrolments.course');
+        $learner->load('enrolments.course:id,name');
 
         return view('learner-progress.show', compact('learner'));
     }
