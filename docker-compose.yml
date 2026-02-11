@@ -40,7 +40,7 @@ services:
       - laravel
     environment:
       - NODE_OPTIONS=--max-old-space-size=512
-    command: sh -c "npm cache clean --force && npm ci && npm run dev"
+    command: sh -c "npm ci && npm run dev"
 
 networks:
   laravel:
