@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Learner;
-use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ListLearnerProgressRequest;
+use App\Models\Learner;
 use App\Repositories\Course\CourseRepositoryInterface;
 use App\Repositories\LearnerProgress\LearnerProgressRepositoryInterface;
+use Illuminate\Contracts\View\View;
 
 class LearnerProgressController extends Controller
 {

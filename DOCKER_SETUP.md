@@ -76,7 +76,7 @@ docker-compose exec node npm <command>
 # Run Vite build
 docker-compose exec node npm run dev
 
-# Run tests
+# Run tests. N.B see test cases section below first
 docker-compose exec app php artisan test
 
 # Access app container shell
@@ -103,3 +103,8 @@ DB_DATABASE=database/school_system.sqlite
 - **app** - PHP 8.2 FPM application server with SQLite support
 - **nginx** - Web server (listening on port 80)
 - **node** - Node.js development server for Vite and npm
+
+## Test Cases
+1. Create a file named .env.testing in the root of the project
+2. Configure your test environment. You can take a look at phpunit.xml
+3. You can generate APP_KEY by running `docker-compose exec app php artisan key:generate --env=testing`
