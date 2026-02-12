@@ -13,7 +13,7 @@ services:
     networks:
       - laravel
     healthcheck:
-      test: ["CMD", "php", "-v"]
+      test: ["CMD-SHELL", "php-fpm-healthcheck || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
