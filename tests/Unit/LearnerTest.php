@@ -6,10 +6,13 @@ use Tests\TestCase;
 use App\Models\Course;
 use App\Models\Learner;
 use App\Models\Enrolment;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 
 class LearnerTest extends TestCase
 {
+    use RefreshDatabase;
+    
     #[Test]
     public function test_full_name_accessor_returns_concatenated_name()
     {
