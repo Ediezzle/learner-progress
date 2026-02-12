@@ -17,3 +17,7 @@
 3. You can generate APP_KEY by running `php artisan key:generate --env=testing`
 4. Run test suite: `php artisan test --env=testing`
 
+## N.B
+1. For production environments, a more robust caching solution such as redis is preferrable
+2. Horizon can also be used for queues
+
