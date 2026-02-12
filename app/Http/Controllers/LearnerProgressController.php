@@ -2,35 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
 use App\Models\Learner;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\View\View;
 use App\Http\Requests\ListLearnerProgressRequest;
+use App\Repositories\Course\CourseRepositoryInterface;
+use App\Repositories\LearnerProgress\LearnerProgressRepositoryInterface;
 
 class LearnerProgressController extends Controller
 {
     /**
-     * Display a listing of learners with their progress.
+     * Display a listing of learners with their progress
+     * 
+     * @param ListLearnerProgressRequest $request
+     * 
+     * @return View
      */
-    public function index(ListLearnerProgressRequest $request)
-    {
+    public function index(
+        ListLearnerProgressRequest $request,
+        CourseRepositoryInterface $courseRepo,
+        LearnerProgressRepositoryInterface $learnerProgressRepo
+    ): View {
         $perPage = $request->get('per_page', 10);
         $courseFilter = $request->get('course_id');
         $sortDirection = $request->get('sort_direction', 'asc');
 
-        $query = Learner::with('enrolments.course:id,name')
-            ->when($courseFilter, function ($q, $courseFilter) {
-                $q->whereHas('enrolments', function (Builder $q) use ($courseFilter) {
-                    $q->where('course_id', $courseFilter);
-                });
-            });
-
-        // Sort by progress with direction (high to low or low to high)
-        $query->withAvg('enrolments', 'progress')
-            ->orderBy('enrolments_avg_progress', $sortDirection);
-
-        $learners = $query->paginate($perPage);
-        $courses = Course::orderBy('name')->get(['id', 'name']);
+        $learners = $learnerProgressRepo->getAllWithEnrolmentProgress($perPage, $courseFilter, $sortDirection);
+        $courses = $courseRepo->getAll();
 
         return view(
             'learner-progress.index',
@@ -39,9 +36,13 @@ class LearnerProgressController extends Controller
     }
 
     /**
-     * Display detailed progress for a specific learner.
+     * Display detailed progress for a specific learner
+     * 
+     * @param Learner $learner
+     * 
+     * @return View
      */
-    public function show(Learner $learner)
+    public function show(Learner $learner): View
     {
         $learner->load('enrolments.course:id,name');
 

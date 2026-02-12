@@ -44,6 +44,7 @@ This directory contains Docker configuration files to run the Laravel applicatio
 
     ```bash
     docker-compose exec php artisan key:generate
+    ```
 
 6. **Run migrations:**
 
