@@ -18,48 +18,54 @@ This directory contains Docker configuration files to run the Laravel applicatio
 
 1. **Clone/navigate to project directory:**
 
-    ```bash
-    cd /Users/edmoremandikiyana/Dev/learner-progress
-    ```
+   ```bash
+   cd /Users/edmoremandikiyana/Dev/learner-progress
+   ```
 
 2. **Copy environment file:**
 
-    ```bash
-    cp .env.example .env
-    ```
+   ```bash
+   cp .env.example .env
+   ```
 
 3. **Build and start containers:**
 
-    ```bash
-    docker-compose up -d --build
-    ```
+   ```bash
+   docker-compose up -d --build
+   ```
 
 4. **Install dependencies (if not already done):**
 
-    ```bash
-    docker-compose exec app composer install
-    ```
+   ```bash
+   docker-compose exec app composer install
+   ```
 
 5. **Generate app key:**
 
-    ```bash
-    docker-compose exec php artisan key:generate
-    ```
+   ```bash
+   docker-compose exec app php artisan key:generate
+   ```
 
 6. **Run migrations:**
 
-    ```bash
-    docker-compose exec app php artisan migrate
-    ```
+   ```bash
+   docker-compose exec app php artisan migrate --seed
+   ```
 
-7. **Seed the database:**
+7. **Install Node dependencies:**
 
-    ```bash
-    docker-compose exec app php artisan db:seed
-    ```
+   ```bash
+   docker-compose exec node npm install
+   ```
 
-8. **Access the application:**
-    - Application: http://localhost
+8. **Run Vite Dev server:**
+
+   ```bash
+   docker-compose exec node npm run dev
+   ```
+
+9. **Access the application:**
+   - Application: http://localhost
 
 ## Useful Commands
 
@@ -105,6 +111,21 @@ DB_DATABASE=database/school_system.sqlite
 - **node** - Node.js development server for Vite and npm
 
 ## Test Cases
-1. Create a file named .env.testing in the root of the project
-2. Configure your test environment. You can take a look at phpunit.xml
-3. You can generate APP_KEY by running `docker-compose exec app php artisan key:generate --env=testing`
+
+1. **Copy .env.pipeline file to .env.testing:**
+
+   ```bash
+   cp .env.pipeline .env.testing
+   ```
+
+2. **Generate app key for tests:**
+
+   ```bash
+   docker-compose exec app php artisan key:generate --env=testing
+   ```
+
+3. **Generate app key for tests:**
+
+   ```bash
+   docker-compose exec app php artisan test --env=testing
+   ```
