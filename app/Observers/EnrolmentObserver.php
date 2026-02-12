@@ -27,7 +27,8 @@ class EnrolmentObserver
     {
         throw_if(
             $enrolment->progress < 0 || $enrolment->progress > 100,
-            new InvalidArgumentException('Progress must be between 0 and 100.')
+            InvalidArgumentException::class,
+            'Progress must be between 0 and 100.'
         );
     }
 }
