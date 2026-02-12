@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\Test;
 
 class ListLearnerProgressRequestTest extends TestCase
 {
-    // this is to ensure course_id 999 won't exists
+    // this is to ensure course_id 999 won't exist
     use RefreshDatabase;
 
     #[Test]

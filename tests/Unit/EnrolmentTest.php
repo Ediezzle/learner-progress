@@ -5,12 +5,15 @@ namespace Tests\Unit;
 use App\Models\Enrolment;
 use App\Models\Learner;
 use App\Models\Course;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
 
 class EnrolmentTest extends TestCase
 {
+    use RefreshDatabase;
+    
     #[Test]
     public function test_enrolment_belongs_to_learner_and_course()
     {

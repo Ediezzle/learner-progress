@@ -113,9 +113,7 @@ class LearnerProgressRepositoryTest extends TestCase
     {
         Course::factory()->count(3)->create();
 
-        $repository = $this->courseRepo;
-
-        $result = $repository->getAll();
+        $result = $this->courseRepo->getAll();
 
         $this->assertInstanceOf(Collection::class, $result);
     }
@@ -127,9 +125,7 @@ class LearnerProgressRepositoryTest extends TestCase
         Course::factory()->create(['name' => 'Alpha']);
         Course::factory()->create(['name' => 'Mango']);
 
-        $repository = $this->courseRepo;
-
-        $result = $repository->getAll()->pluck('name')->values();
+        $result = $this->courseRepo->getAll()->pluck('name')->values();
 
         $this->assertEquals(
             ['Alpha', 'Mango', 'Zebra'],
@@ -142,9 +138,7 @@ class LearnerProgressRepositoryTest extends TestCase
     {
         $courses = Course::factory()->count(2)->create();
 
-        $repository = $this->courseRepo;
-
-        $repository->getAll();
+        $this->courseRepo->getAll();
 
         $this->assertTrue(Cache::has(config('cache.course_cache_key')));
 
@@ -160,16 +154,14 @@ class LearnerProgressRepositoryTest extends TestCase
     {
         Course::factory()->create(['name' => 'Cached Course']);
 
-        $repository = $this->courseRepo;
-
         // First call caches
-        $repository->getAll();
+        $this->courseRepo->getAll();
 
         // Remove from database
         Course::truncate();
 
         // Second call should return cached result
-        $result = $repository->getAll();
+        $result = $this->courseRepo->getAll();
 
         $this->assertCount(1, $result);
         $this->assertEquals('Cached Course', $result->first()->name);
@@ -183,10 +175,8 @@ class LearnerProgressRepositoryTest extends TestCase
 
         Course::factory()->create(['name' => 'Initial']);
 
-        $repository = $repository = $this->courseRepo;
-
         // First call caches result
-        $repository->getAll();
+        $this->courseRepo->getAll();
 
         // Remove from DB
         Course::truncate();
