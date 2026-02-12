@@ -3,8 +3,9 @@
 namespace App\Repositories\Course;
 
 use App\Models\Course;
-use Illuminate\Support\Facades\Cache;
+use App\Repositories\Course\CourseRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
 class CourseRepository implements CourseRepositoryInterface
 {

@@ -6,12 +6,16 @@ use App\Http\Requests\ListLearnerProgressRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Validator;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class ListLearnerProgressRequestTest extends TestCase
 {
+    // this is to ensure course_id 999 won't exists
     use RefreshDatabase;
-    
-    public function test_rules_validation()
+
+    #[Test]
+    public function test_rules_validation_fails_for_invalid_data()
     {
         $request = new ListLearnerProgressRequest();
         $rules = $request->rules();
@@ -30,6 +34,7 @@ class ListLearnerProgressRequestTest extends TestCase
         $this->assertArrayHasKey('page', $validator->errors()->toArray());
     }
 
+    #[Test]
     public function test_rules_validation_passes_for_valid_data()
     {
         $request = new ListLearnerProgressRequest();

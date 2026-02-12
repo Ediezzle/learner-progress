@@ -2,11 +2,12 @@
 
 namespace App\Repositories\LearnerProgress;
 
-use App\Models\Learner;
 use App\Models\Enrolment;
+use App\Models\Learner;
+use App\Repositories\LearnerProgress\LearnerProgressRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class LearnerProgressRepository implements LearnerProgressRepositoryInterface
 {

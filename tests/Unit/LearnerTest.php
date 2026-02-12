@@ -6,18 +6,18 @@ use Tests\TestCase;
 use App\Models\Course;
 use App\Models\Learner;
 use App\Models\Enrolment;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class LearnerTest extends TestCase
 {
-    use RefreshDatabase;
-
+    #[Test]
     public function test_full_name_accessor_returns_concatenated_name()
     {
         $learner = Learner::factory()->create(['firstname' => 'Jane', 'lastname' => 'Doe']);
         $this->assertEquals('Jane Doe', $learner->full_name);
     }
 
+    #[Test]
     public function test_enrolments_relationship()
     {
         $learner = Learner::factory()->create();
