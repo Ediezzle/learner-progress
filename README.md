@@ -7,3 +7,5 @@
 3. Generate the App Key: `php artisan key:generate`
 4. Run migrations and seeders: `php artisan migrate --seed`
 5. Start the development server: `php artisan serve`
+6. Install Node dependencies: `npm install`
+7. Run Vite build: `npm run dev`

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    volumes:
+      - ./:/var/www/html  
+    ports:
+      - "9000:9000"       # for debugging PHP directly
+
+  nginx:
+    volumes:
+      - ./:/var/www/html       # mount project so Nginx can see it
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - /var/www/html/storage   # keeping storage volume mounted
+
+  node:
+    image: node:18
+    container_name: laravel_node
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+      - /var/www/html/node_modules
+    ports:
+      - "5173:5173"       # Vite dev server
+    environment:
+      NODE_OPTIONS: --max-old-space-size=512
+    command: sh -c "npm ci && npm run dev"
+    networks:
+      - laravel

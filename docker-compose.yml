@@ -2,46 +2,43 @@ version: '3.8'
 
 services:
   app:
-    build: .
-    container_name: laravel_app
-    restart: unless-stopped
-    working_dir: /var/www/html
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
     volumes:
-      - ./:/var/www/html
+      - storage:/var/www/html/storage
     networks:
       - laravel
+    healthcheck:
+      test: ["CMD", "php", "-v"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   nginx:
     image: nginx:alpine
-    container_name: laravel_nginx
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./:/var/www/html
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
-    networks:
-      - laravel
+      - storage:/var/www/html/storage
     depends_on:
       - app
-
-  node:
-    image: node:18
-    container_name: laravel_node
-    restart: unless-stopped
-    working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
-      - /var/www/html/node_modules
-    ports:
-      - "5173:5173"
     networks:
       - laravel
-    environment:
-      - NODE_OPTIONS=--max-old-space-size=512
-    command: sh -c "npm ci && npm run dev"
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost"] 
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  storage:
 
 networks:
   laravel:
-    driver: bridge
