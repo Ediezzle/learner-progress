@@ -184,13 +184,13 @@ class LearnerProgressRepositoryTest extends TestCase
         // Still within 1 day → should return cached value
         $this->travel(23)->hours();
 
-        $result = $repository->getAll();
+        $result = $this->courseRepo->getAll();
         $this->assertCount(1, $result);
 
         // Move beyond expiry
         $this->travel(2)->hours(); // total 25h
 
-        $resultAfterExpiry = $repository->getAll();
+        $resultAfterExpiry = $this->courseRepo->getAll();
 
         $this->assertCount(0, $resultAfterExpiry);
     }

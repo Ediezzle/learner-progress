@@ -7,11 +7,14 @@ use App\Models\Course;
 use App\Models\Enrolment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class LearnerProgressControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    #[Test]
     public function test_index_displays_learners()
     {
         $learner = Learner::factory()->create(['firstname' => 'Alice', 'lastname' => 'Wonder']);
@@ -27,6 +30,8 @@ class LearnerProgressControllerTest extends TestCase
         $response->assertSee('Alice');
         $response->assertSee('Wonder');
     }
+
+    #[Test]
 
     public function test_index_filters_by_course()
     {
@@ -50,6 +55,8 @@ class LearnerProgressControllerTest extends TestCase
         $response->assertSee('Bob');
         $response->assertDontSee('Charlie');
     }
+
+    #[Test]
 
     public function test_index_sorts_by_progress()
     {
