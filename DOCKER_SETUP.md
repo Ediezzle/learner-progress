@@ -19,7 +19,7 @@ This directory contains Docker configuration files to run the Laravel applicatio
 1. **Clone/navigate to project directory:**
 
    ```bash
-   cd /Users/edmoremandikiyana/Dev/learner-progress
+   cd <project_root_directory>
    ```
 
 2. **Copy environment file:**
@@ -124,7 +124,7 @@ DB_DATABASE=database/school_system.sqlite
    docker-compose exec app php artisan key:generate --env=testing
    ```
 
-3. **Generate app key for tests:**
+3. **Run tests:**
 
    ```bash
    docker-compose exec app php artisan test --env=testing
