@@ -9,7 +9,7 @@
             @if ($paginator->onFirstPage())
                 <span class="px-3 py-2 text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">First</span>
             @else
-                <a href="{{ $paginator->path() }}?page=1&per_page={{ request('per_page', 5) }}" class="px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">First</a>
+                <a href="{{ $paginator->path() }}?page=1{{ http_build_query(request()->except('page')) ? '&' . http_build_query(request()->except('page')) : '' }}" class="px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">First</a>
             @endif
 
             {{-- Previous Page Link --}}
@@ -58,7 +58,7 @@
 
             {{-- Last Page Link --}}
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->path() }}?page={{ $paginator->lastPage() }}&per_page={{ request('per_page', 5) }}" class="px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">Last</a>
+                <a href="{{ $paginator->path() }}?page={{ $paginator->lastPage() }}{{ http_build_query(request()->except('page')) ? '&' . http_build_query(request()->except('page')) : '' }}" class="px-3 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition">Last</a>
             @else
                 <span class="px-3 py-2 text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed">Last</span>
             @endif
