@@ -3,11 +3,14 @@
 namespace Tests\Unit;
 
 use App\Http\Requests\ListLearnerProgressRequest;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Validator;
 use Tests\TestCase;
 
 class ListLearnerProgressRequestTest extends TestCase
 {
+    use RefreshDatabase;
+    
     public function test_rules_validation()
     {
         $request = new ListLearnerProgressRequest();

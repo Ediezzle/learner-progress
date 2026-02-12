@@ -21,8 +21,8 @@ class EnrolmentTest extends TestCase
             'course_id' => $course->id,
             'progress' => 75
         ]);
-        $this->assertEquals($learner->id, $enrolment->learner->id);
-        $this->assertEquals($course->id, $enrolment->course->id);
+        $this->assertEquals($enrolment->learner->is($learner), true);
+        $this->assertEquals($enrolment->course->is($course), true);
     }
 
     public function test_progress_casting()
