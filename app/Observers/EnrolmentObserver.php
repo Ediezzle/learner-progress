@@ -8,7 +8,7 @@ use InvalidArgumentException;
 class EnrolmentObserver
 {
     /**
-     * Handle the Enrolment "created" event.
+     * Handle the Enrolment "creating" event.
      */
     public function creating(Enrolment $enrolment): void
     {
@@ -16,7 +16,7 @@ class EnrolmentObserver
     }
 
     /**
-     * Handle the Enrolment "updated" event.
+     * Handle the Enrolment "updating" event.
      */
     public function updating(Enrolment $enrolment): void
     {
