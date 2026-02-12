@@ -28,38 +28,37 @@ This directory contains Docker configuration files to run the Laravel applicatio
     cp .env.example .env
     ```
 
-3. **Set up database configuration values:**
-
-4. **Build and start containers:**
+3. **Build and start containers:**
 
     ```bash
     docker-compose up -d --build
     ```
 
-5. **Install dependencies (if not already done):**
+4. **Install dependencies (if not already done):**
 
     ```bash
     docker-compose exec app composer install
     ```
 
-6. **Generate app key:**
+5. **Generate app key:**
 
     ```bash
     docker-compose exec php artisan key:generate
+    ```
 
-7. **Run migrations:**
+6. **Run migrations:**
 
     ```bash
     docker-compose exec app php artisan migrate
     ```
 
-8. **Seed the database:**
+7. **Seed the database:**
 
     ```bash
     docker-compose exec app php artisan db:seed
     ```
 
-9. **Access the application:**
+8. **Access the application:**
     - Application: http://localhost
 
 ## Useful Commands

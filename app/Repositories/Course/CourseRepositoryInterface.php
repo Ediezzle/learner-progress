@@ -9,7 +9,6 @@ interface CourseRepositoryInterface
     /**
      * Get all courses, with caching for 24 hours
      *
-     * @return Collection
      * 
      * @return Collection<Course>
      */
