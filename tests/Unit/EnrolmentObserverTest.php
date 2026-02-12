@@ -6,10 +6,11 @@ use App\Models\Enrolment;
 use App\Observers\EnrolmentObserver;
 use InvalidArgumentException;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class EnrolmentObserverTest extends TestCase
 {
-
+    #[Test]
     public function test_validate_progress_throws_for_invalid_progress()
     {
         $observer = new EnrolmentObserver();
@@ -18,6 +19,7 @@ class EnrolmentObserverTest extends TestCase
         $observer->updating($enrolment);
     }
 
+    #[Test]
     public function test_validate_progress_allows_valid_progress()
     {
         $this->expectNotToPerformAssertions();

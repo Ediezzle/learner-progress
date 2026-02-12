@@ -7,11 +7,14 @@ use App\Models\Learner;
 use App\Models\Course;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
+
 
 class EnrolmentTest extends TestCase
 {
     use RefreshDatabase;
-
+    
+    #[Test]
     public function test_enrolment_belongs_to_learner_and_course()
     {
         $learner = Learner::factory()->create();
@@ -25,6 +28,7 @@ class EnrolmentTest extends TestCase
         $this->assertEquals($enrolment->course->is($course), true);
     }
 
+    #[Test]
     public function test_progress_casting()
     {
         $enrolment = Enrolment::factory()->create(['progress' => 88]);
