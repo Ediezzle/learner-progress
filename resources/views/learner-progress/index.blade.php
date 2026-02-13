@@ -86,7 +86,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($learner->enrolments->count() > 0)
                                         @php
-                                            $avgProgress = round($learner->enrolments->avg('progress'));
+                                            $avgProgress =  number_format($learner->enrolments_avg_progress, 2);
                                         @endphp
                                         <div class="flex items-center gap-2">
                                             <div class="w-24 bg-gray-200 rounded-full h-2">
